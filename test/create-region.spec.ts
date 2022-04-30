@@ -2,29 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { MainModule } from '../src/modules/main/main.module';
 import { CreateRegionService } from '../src/modules/example-module/application/create-region.service';
-import { CreateRegionCommand } from '../src/modules/example-module/application/create-region.command';
 import { ExampleModule } from '../src/modules/example-module/example.module';
-import { randNumber, randAddress } from '@ngneat/falso';
+import { randAddress } from '@ngneat/falso';
 import { Region } from '../src/modules/example-module/domain/model/region';
 import { Connection } from 'typeorm';
+import { RegionMother } from './region-mother';
 
 const existingCityName = randAddress({ includeCounty: false }).city;
-function buildRegionCommand() {
-  const command = new CreateRegionCommand();
-  command.name = randAddress({ includeCounty: false }).city;
-  command.boundingBox = {
-    bottomLeft: {
-      longitude: randNumber({ min: -180, max: 180 }),
-      latitude: randNumber({ min: -90, max: 90 }),
-    },
-    upperRight: {
-      longitude: randNumber({ min: -180, max: 180 }),
-      latitude: randNumber({ min: -90, max: 90 }),
-    },
-  };
-
-  return command;
-}
 
 describe('Create Region Test', () => {
   let service: CreateRegionService;
@@ -36,7 +20,7 @@ describe('Create Region Test', () => {
     }).compile();
 
     service = application.get<CreateRegionService>(CreateRegionService);
-    const command = buildRegionCommand();
+    const command = RegionMother.randomCreateCommand();
     command.name = existingCityName;
 
     application.get(Connection);
@@ -48,7 +32,7 @@ describe('Create Region Test', () => {
   });
 
   it('should create new region', async () => {
-    const command = buildRegionCommand();
+    const command = RegionMother.randomCreateCommand();
     const result = await service.process(command);
 
     expect(result).toBeInstanceOf(Region);
@@ -58,7 +42,7 @@ describe('Create Region Test', () => {
   it('should throw error when region name already exist', async () => {
     expect.assertions(1);
 
-    const command = buildRegionCommand();
+    const command = RegionMother.randomCreateCommand();
     command.name = existingCityName;
 
     try {
