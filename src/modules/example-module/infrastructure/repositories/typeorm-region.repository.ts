@@ -39,8 +39,19 @@ export class TypeormRegionRepository {
     return Promise.resolve(this.mapEntityRootToModel(entity));
   }
 
-  async create(region: Region): Promise<Region> {
+  async byIdOrFail(id: number): Promise<Region> {
+    const entity = await this.findOne<RegionEntity>(RegionEntity, { id });
+
+    if (typeof entity === 'undefined') {
+      throw new Error(`The region id not exist`);
+    }
+
+    return Promise.resolve(this.mapEntityRootToModel(entity));
+  }
+
+  async persist(region: Region): Promise<Region> {
     const entity = new RegionEntity();
+    entity.id = region.id;
     entity.name = region.name;
     entity.bboxUpperRight = `POINT (${region.upperRight.x} ${region.upperRight.y})`;
     entity.bboxBottomLeft = `POINT (${region.bottomLeft.x} ${region.bottomLeft.y})`;
@@ -49,5 +60,13 @@ export class TypeormRegionRepository {
     region.hydrate({ id: result.id });
 
     return Promise.resolve(region);
+  }
+
+  async create(region: Region): Promise<Region> {
+    return this.persist(region);
+  }
+
+  async update(region: Region): Promise<Region> {
+    return this.persist(region);
   }
 }

@@ -8,22 +8,16 @@ import { Latitude } from './latitude';
  */
 export class Region {
   private _id: number;
-  private readonly _name: string;
-  private readonly boundingBox: BoundingBox;
+  private _name: string;
+  private boundingBox: BoundingBox;
 
   constructor(name: string, bottomLeft: Coordinate, upperRight: Coordinate) {
     if (name === '') {
       throw new Error(`Region Name cant be empty`);
     }
 
-    this._name = name;
-
-    this.boundingBox = new BoundingBox(
-      new Longitude(bottomLeft.x),
-      new Latitude(bottomLeft.y),
-      new Longitude(upperRight.x),
-      new Latitude(upperRight.y),
-    );
+    this.setName(name);
+    this.setCoordinates(bottomLeft, upperRight);
   }
 
   get id(): number {
@@ -56,6 +50,19 @@ export class Region {
 
   top() {
     return this.boundingBox.north.toNumber();
+  }
+
+  setName(name: string) {
+    this._name = name;
+  }
+
+  setCoordinates(bottomLeft: Coordinate, upperRight: Coordinate) {
+    this.boundingBox = new BoundingBox(
+      new Longitude(bottomLeft.x),
+      new Latitude(bottomLeft.y),
+      new Longitude(upperRight.x),
+      new Latitude(upperRight.y),
+    );
   }
 
   /**
