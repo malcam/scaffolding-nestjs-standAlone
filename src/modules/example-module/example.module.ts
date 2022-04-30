@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './infrastructure/controllers/app.controller';
-import { AppService } from './application/app.service';
+import { RegionController } from './infrastructure/controllers/region.controller';
+import { CreateRegionService } from './application/create-region.service';
 import { ConfigModule } from '../config/config.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeormRegionRepository } from './infrastructure/repositories/typeorm-region.repository';
+import { RegionEntity } from './infrastructure/domain/region.entity';
+import { REGION_REPOSITORY } from '../shared/injection-tokens';
 
 @Module({
-  imports: [ConfigModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ConfigModule, TypeOrmModule.forFeature([RegionEntity])],
+  controllers: [RegionController],
+  providers: [
+    CreateRegionService,
+    { provide: REGION_REPOSITORY, useClass: TypeormRegionRepository },
+  ],
 })
 export class ExampleModule {}
