@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { BaseEntity } from './base-entity.entity';
+import { BaseEntity } from '../../../shared/infrastructure/domain/base-entity.entity';
 
 @Entity({ name: 'region' })
 export class RegionEntity extends BaseEntity {

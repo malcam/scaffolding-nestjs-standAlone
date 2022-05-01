@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { MainModule } from '../src/modules/main/main.module';
-import { CreateRegionService } from '../src/modules/example-module/application/create-region.service';
-import { ExampleModule } from '../src/modules/example-module/example.module';
+import { CreateRegionService } from '../src/modules/region/application/create-region.service';
+import { RegionModule } from '../src/modules/region/region.module';
 import { randAddress } from '@ngneat/falso';
-import { Region } from '../src/modules/example-module/domain/model/region';
+import { Region } from '../src/modules/region/domain/model/region';
 import { Connection } from 'typeorm';
 import { RegionMother } from './region-mother';
 
@@ -16,7 +16,7 @@ describe('Create Region Test', () => {
 
   beforeAll(async () => {
     application = await Test.createTestingModule({
-      imports: [MainModule, ExampleModule],
+      imports: [MainModule, RegionModule],
     }).compile();
 
     service = application.get<CreateRegionService>(CreateRegionService);

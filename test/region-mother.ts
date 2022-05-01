@@ -1,6 +1,6 @@
-import { UpdateRegionCommand } from '../src/modules/example-module/application/update-region.command';
+import { UpdateRegionCommand } from '../src/modules/region/application/update-region.command';
 import { randAddress, randNumber } from '@ngneat/falso';
-import { CreateRegionCommand } from '../src/modules/example-module/application/create-region.command';
+import { CreateRegionCommand } from '../src/modules/region/application/create-region.command';
 
 export class RegionMother {
   public static randomPlainCoordinate() {

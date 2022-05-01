@@ -17,4 +17,4 @@ import { UpdateRegionService } from './application/update-region.service';
     { provide: REGION_REPOSITORY, useClass: TypeormRegionRepository },
   ],
 })
-export class ExampleModule {}
+export class RegionModule {}
