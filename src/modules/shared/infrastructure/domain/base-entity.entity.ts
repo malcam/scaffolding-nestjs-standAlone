@@ -17,4 +17,10 @@ export abstract class BaseEntity {
     //default: () => 'NOW()',
   })
   updatedAt: Date;
+
+  constructor(data?) {
+    if (typeof data !== 'undefined' || data !== null) {
+      Object.assign(this, data);
+    }
+  }
 }
