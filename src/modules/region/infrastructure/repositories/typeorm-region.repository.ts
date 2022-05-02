@@ -20,10 +20,15 @@ export class TypeormRegionRepository {
   protected mapEntityRootToModel(entity: RegionEntity): Region {
     const result = new Region(
       entity.name,
-      new Coordinate(parseInt(entity.bboxBottomLeft, 10), parseInt(entity.bboxBottomLeft, 10)),
-      new Coordinate(parseInt(entity.bboxUpperRight, 10), parseInt(entity.bboxUpperRight, 10)),
+      new Coordinate(
+        entity.bottomLeftLocation.coordinates[0],
+        entity.bottomLeftLocation.coordinates[1],
+      ),
+      new Coordinate(
+        entity.upperRightLocation.coordinates[0],
+        entity.upperRightLocation.coordinates[1],
+      ),
     );
-
     result.hydrate({ id: entity.id });
 
     return result;
@@ -53,8 +58,17 @@ export class TypeormRegionRepository {
     const entity = new RegionEntity();
     entity.id = region.id;
     entity.name = region.name;
-    entity.bboxUpperRight = `POINT (${region.upperRight.x} ${region.upperRight.y})`;
-    entity.bboxBottomLeft = `POINT (${region.bottomLeft.x} ${region.bottomLeft.y})`;
+
+    entity.upperRightLocation = {
+      type: 'Point',
+      coordinates: [region.upperRight.x, region.upperRight.y],
+    };
+
+    entity.bottomLeftLocation = {
+      type: 'Point',
+      coordinates: [region.bottomLeft.x, region.bottomLeft.y],
+    };
+
     const result = await this.save<RegionEntity>(entity);
 
     region.hydrate({ id: result.id });

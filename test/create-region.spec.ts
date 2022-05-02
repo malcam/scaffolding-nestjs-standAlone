@@ -15,6 +15,8 @@ describe('Create Region Test', () => {
   let application: TestingModule;
 
   beforeAll(async () => {
+    jest.setTimeout(10000);
+
     application = await Test.createTestingModule({
       imports: [MainModule, RegionModule],
     }).compile();
