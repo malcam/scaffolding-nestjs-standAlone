@@ -14,7 +14,6 @@ export class CreatePropertyTable1651491470295 implements MigrationInterface {
   \`bathrooms\` int NOT NULL,
   \`area\` int NOT NULL,
   \`regions\` json NOT NULL,
-  \`migration\` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   \`price_id\` int UNSIGNED NOT NULL,
   PRIMARY KEY (\`id\`) USING BTREE,
   UNIQUE INDEX \`REL_9c031caafbc3892ad5401197c3\`(\`price_id\`) USING BTREE,

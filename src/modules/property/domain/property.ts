@@ -1,5 +1,4 @@
 import { Coordinate } from '../../region/domain/model/coordinate';
-import { Image } from './image';
 import { Price } from './price';
 
 export class Property {
@@ -11,7 +10,7 @@ export class Property {
   private _bathrooms: number;
   private _pricing: Price;
   private _area: number;
-  private photos: Image[];
+  private photos: string[];
   private _regions: string[] = [];
 
   private _createdAt;

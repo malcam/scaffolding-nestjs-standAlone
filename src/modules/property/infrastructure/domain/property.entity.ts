@@ -10,7 +10,7 @@ export class PropertyEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   title: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
   @Column({
@@ -33,9 +33,6 @@ export class PropertyEntity extends BaseEntity {
 
   @Column({ type: 'json' })
   regions: string[];
-
-  @Column({ type: 'varchar' })
-  migration: string;
 
   @OneToOne(() => PriceEntity, { cascade: true, nullable: false })
   @JoinColumn({ name: 'price_id' })
