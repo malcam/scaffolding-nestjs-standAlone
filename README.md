@@ -24,49 +24,124 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Aptuno backend coding test.
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
+```
+
+## Running the app with docker compose
+```bash
+# Must have to wait 20 seconds for the migrations to run
+$ docker-compose --env-file .env -f docker-compose.yml up -d --build
+```
+
+## Urls
+```bash
+# localhost:8882/regions
+$ curl --location --request POST 'localhost:8882/regions' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Cancun",
+  "boundingBox": {
+    "bottomLeft" : {
+      "longitude" :-89.29656183,
+      "latitude" : 17.89398542
+    },
+    "upperRight" : {
+      "longitude" : -86.71061093,
+      "latitude" : 21.60550404
+    }
+  }
+}'
+```
+ 
+```bash
+# localhost:8882/regions/{id}
+$ curl --location --request PUT 'localhost:8882/regions/39' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "id": 39,
+  "name": "Chapinero 2",
+  "boundingBox": {
+    "bottomLeft" : {
+      "longitude" : 74.069225,
+      "latitude" : 5.621519
+    },
+    "upperRight" : {
+      "longitude" : -74.024078,
+      "latitude" : 4.681916
+    }
+  }
+}'
+```
+
+```bash
+# localhost:8882/properties
+$ curl --location --request POST 'localhost:8882/properties' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "title": "Apartamento soportado",
+  "location": {
+    "longitude": -86.97121226,
+    "latitude": 21.02976327
+  },
+  "pricing": {
+    "rentalPrice": 2000000
+  },
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "area": 60
+}'
+```
+## Environments
+
+```bash
+# Application
+APP_NAME=Application
+HOST=localhost
+PORT=3000
+EVENT_LISTENER=8882
+
+# Database
+MAIN_DB_TYPE=mysql
+MAIN_DB_HOST=coding-test-db
+MAIN_DB_PORT=3306
+MAIN_DB_USERNAME=root
+MAIN_DB_PASSWORD=mauFJcuf5dhRMQrjj
+MAIN_DB_NAME=db_test
+MAIN_DB_RUN_MIGRATIONS=0
+MAIN_DB_SYNC=0
+MAIN_DB_LOGGING=0
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn run test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
