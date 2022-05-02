@@ -5,7 +5,6 @@ import { CreateRegionService } from '../src/modules/region/application/create-re
 import { RegionModule } from '../src/modules/region/region.module';
 import { randAddress } from '@ngneat/falso';
 import { Region } from '../src/modules/region/domain/model/region';
-import { Connection } from 'typeorm';
 import { RegionMother } from './region-mother';
 
 const existingCityName = randAddress({ includeCounty: false }).city;
@@ -25,7 +24,6 @@ describe('Create Region Test', () => {
     const command = RegionMother.randomCreateCommand();
     command.name = existingCityName;
 
-    application.get(Connection);
     await service.process(command);
   });
 

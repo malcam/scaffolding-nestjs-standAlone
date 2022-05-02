@@ -31,4 +31,40 @@ export class RegionMother {
 
     return command;
   }
+
+  public static mexicoCreateCommand(): CreateRegionCommand {
+    const command = new CreateRegionCommand();
+    command.name = 'Mexico' + randNumber();
+
+    command.boundingBox = {
+      bottomLeft: {
+        longitude: -117.12776,
+        latitude: 14.5388286402,
+      },
+      upperRight: {
+        longitude: -86.811982388,
+        latitude: 32.72083,
+      },
+    };
+
+    return command;
+  }
+
+  public static quintanaRooCreateCommand(): CreateRegionCommand {
+    const command = new CreateRegionCommand();
+    command.name = 'Quintana Roo' + randNumber();
+
+    command.boundingBox = {
+      bottomLeft: {
+        longitude: -89.29656183,
+        latitude: 17.89398542,
+      },
+      upperRight: {
+        longitude: -86.71061093,
+        latitude: 21.60550404,
+      },
+    };
+
+    return command;
+  }
 }

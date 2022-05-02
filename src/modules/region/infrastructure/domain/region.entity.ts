@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 import { Point } from 'geojson';
 import { BaseEntity } from '../../../shared/infrastructure/domain/base-entity.entity';
-import { GeometryTransformer } from './geometry-transformer';
+import { GeometryTransformer } from '../../../shared/infrastructure/domain/geometry-transformer';
 
 @Entity({ name: 'region' })
 export class RegionEntity extends BaseEntity {

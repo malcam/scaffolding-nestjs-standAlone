@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { options } from '../config/options/config.options';
 import { RegionModule } from '../region/region.module';
+import { PropertyModule } from '../property/property.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { RegionModule } from '../region/region.module';
       },
     }),
     RegionModule,
+    PropertyModule,
     ConfigModule.forRoot(options),
   ],
 })
