@@ -7,7 +7,7 @@ import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '@nestjs/config';
 
 import { options } from '../config/options/config.options';
-import { ExampleModule } from '../example-module/example.module';
+import { AppModule } from '../app/app.module';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { ExampleModule } from '../example-module/example.module';
         } as TypeOrmModuleAsyncOptions;
       },
     }),
-    ExampleModule,
+    AppModule,
     ConfigModule.forRoot(options),
   ],
 })
