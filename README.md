@@ -24,49 +24,68 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Guros backend coding test
+
+## Environments
+
+```bash
+# Application
+APP_NAME=Application
+HOST=localhost
+PORT=3000
+EVENT_LISTENER=8082
+
+# Database
+MAIN_DB_TYPE=mysql
+MAIN_DB_HOST=coding-test-db
+MAIN_DB_PORT=3306
+MAIN_DB_USERNAME=root
+MAIN_DB_PASSWORD=mauFJcuf5dhRMQrjj
+MAIN_DB_NAME=db_test
+MAIN_DB_RUN_MIGRATIONS=0
+MAIN_DB_SYNC=0
+MAIN_DB_LOGGING=0
+```
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
+```
+
+## Running the app with docker
+
+```bash
+# Must have to wait 20 seconds for the migrations to run
+$ docker build --pull --rm -f "Dockerfile" -t guros-coding-test:latest "."
+$ docker run --rm --env-file .env -p 8082:8082/tcp -d --name guros-app guros-coding-test:latest
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn run test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
