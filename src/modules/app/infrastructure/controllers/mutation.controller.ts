@@ -10,7 +10,13 @@ export class MutationController {
   @HttpCode(200)
   async hasMutation(@Body() command: HasMutationCommand): Promise<any> {
     try {
-      return await this.hasMutationService.process(command);
+      const model = await this.hasMutationService.process(command);
+
+      if (!model.hasMutation) {
+        throw new Error('Mutacion no encontrada');
+      }
+
+      return model;
     } catch (error) {
       throw new HttpException(
         {

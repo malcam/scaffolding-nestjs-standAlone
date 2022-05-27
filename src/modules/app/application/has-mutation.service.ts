@@ -16,16 +16,18 @@ export class HasMutationService implements ApplicationService<HasMutationCommand
    * Find a mutation in a DNA sequence
    * @param command dna data
    */
-  async process(command: HasMutationCommand): Promise<any> {
-    const entity = new DnaChain();
+  async process(command: HasMutationCommand): Promise<DnaChain> {
+    const dnaChainModel = new DnaChain();
     command.dna.forEach((value) => {
-      entity.add(value);
+      dnaChainModel.add(value);
     });
 
-    if (!this.mutationTest.hasMutation(entity.toArray())) {
-      throw new Error('Mutacion no encontrada');
+    if (!this.mutationTest.hasMutation(dnaChainModel.toArray())) {
+      dnaChainModel.markMutationWith(false);
+    } else {
+      dnaChainModel.markMutationWith(true);
     }
 
-    return entity;
+    return dnaChainModel;
   }
 }

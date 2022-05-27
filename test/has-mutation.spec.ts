@@ -30,6 +30,7 @@ describe('Has Mutation Use Case', () => {
     command.dna = data;
     const result = await service.process(command);
     expect(result).toBeInstanceOf(DnaChain);
+    expect(result.hasMutation).toBeTruthy();
   });
 
   it('Should throw a error when has not mutation', async () => {
@@ -38,10 +39,7 @@ describe('Has Mutation Use Case', () => {
     const command = new HasMutationCommand();
     command.dna = data;
 
-    try {
-      await service.process(command);
-    } catch (e) {
-      expect(e).toEqual(new Error(`Mutacion no encontrada`));
-    }
+    const result = await service.process(command);
+    expect(result.hasMutation).toBeFalsy();
   });
 });
