@@ -19,6 +19,7 @@ export class TypeormDnaRepository implements DnaRepository {
     entity.sequence = model.sequence;
     entity.rows = m;
     entity.columns = n;
+    entity.hasMutation = model.hasMutation;
     await this.save(entity);
 
     model.hydrate({ createdAt: entity.createdAt, id: entity.id });

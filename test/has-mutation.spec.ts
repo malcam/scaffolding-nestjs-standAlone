@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MainModule } from '../src/modules/main/main.module';
 
 import { HasMutationService } from '../src/modules/app/application/has-mutation.service';
-import { HasMutationCommand } from '../src/modules/app/application/has-mutation.command';
 import { DnaChain } from '../src/modules/app/domain/dna-chain';
+import { DnaMother } from './dna-mother';
 
 describe('Has Mutation Use Case', () => {
   let service: HasMutationService;
@@ -24,20 +24,15 @@ describe('Has Mutation Use Case', () => {
   });
 
   it('Should return a entity when has mutation', async () => {
-    const data = ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG'];
+    const command = DnaMother.mutatedDnaCreateCommand();
 
-    const command = new HasMutationCommand();
-    command.dna = data;
     const result = await service.process(command);
     expect(result).toBeInstanceOf(DnaChain);
     expect(result.hasMutation).toBeTruthy();
   });
 
   it('Should throw a error when has not mutation', async () => {
-    const data = ['ATGCGA', 'CAGTGC', 'TTATTT', 'AGACGG', 'GCGTCA', 'TCACTG'];
-
-    const command = new HasMutationCommand();
-    command.dna = data;
+    const command = DnaMother.notMutatedDnaCreateCommand();
 
     const result = await service.process(command);
     expect(result.hasMutation).toBeFalsy();

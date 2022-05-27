@@ -22,6 +22,8 @@ export class CreateDnaService implements ApplicationService<CreateDnaCommand> {
       entity.add(value);
     });
 
+    entity.markMutationWith(command.hasMutation);
+
     await this.dnaRepository.create(entity);
 
     return entity;

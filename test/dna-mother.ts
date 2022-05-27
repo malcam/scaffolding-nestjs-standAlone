@@ -10,4 +10,12 @@ export class DnaMother {
 
     return command;
   }
+
+  public static notMutatedDnaCreateCommand(): CreateDnaCommand {
+    const data = ['ATGCGA', 'CAGTGC', 'TTATTT', 'AGACGG', 'GCGTCA', 'TCACTG'];
+    const command = new CreateDnaCommand();
+    command.dna = data;
+
+    return command;
+  }
 }

@@ -1,10 +1,15 @@
 import { Controller, Post, Body, HttpCode, HttpException, HttpStatus } from '@nestjs/common';
 import { HasMutationCommand } from '../../application/has-mutation.command';
 import { HasMutationService } from '../../application/has-mutation.service';
+import { CreateDnaService } from '../../application/create-dna.service';
+import { CreateDnaCommand } from '../../application/create-dna.command';
 
 @Controller()
 export class MutationController {
-  constructor(private readonly hasMutationService: HasMutationService) {}
+  constructor(
+    private readonly hasMutationService: HasMutationService,
+    private readonly createDnaService: CreateDnaService,
+  ) {}
 
   @Post('/mutation')
   @HttpCode(200)
@@ -12,11 +17,18 @@ export class MutationController {
     try {
       const model = await this.hasMutationService.process(command);
 
+      // TODO: refactor to use events
+      const createCommand = new CreateDnaCommand();
+      createCommand.dna = model.toArray();
+      createCommand.hasMutation = model.hasMutation;
+
+      const result = await this.createDnaService.process(createCommand);
+
       if (!model.hasMutation) {
         throw new Error('Mutacion no encontrada');
       }
 
-      return model;
+      return result;
     } catch (error) {
       throw new HttpException(
         {

@@ -1,10 +1,7 @@
-import { IsNotEmpty, IsDefined, IsArray } from 'class-validator';
+import { IsDefined } from 'class-validator';
+import { BaseDnaCommand } from './base-dna.command';
 
-import { Command } from '../../shared/contracts/command';
-
-export class CreateDnaCommand implements Command {
+export class CreateDnaCommand extends BaseDnaCommand {
   @IsDefined()
-  @IsArray()
-  @IsNotEmpty()
-  public dna: string[];
+  public hasMutation: boolean;
 }
