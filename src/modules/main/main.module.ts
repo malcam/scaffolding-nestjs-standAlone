@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-//import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
-//import { databaseConfigLoader } from '../config/loaders';
-//import { DatabaseConfigType } from '../config/types/database.type';
+import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
+import { databaseConfigLoader } from '../config/loaders';
+import { DatabaseConfigType } from '../config/types/database.type';
 
 import { ConfigModule } from '../config/config.module';
-// import { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 import { options } from '../config/options/config.options';
 import { AppModule } from '../app/app.module';
 
 @Module({
   imports: [
-    /*TypeOrmModule.forRootAsync({
+    TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forFeature(databaseConfigLoader)],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
@@ -33,7 +33,7 @@ import { AppModule } from '../app/app.module';
           legacySpatialSupport: false,
         } as TypeOrmModuleAsyncOptions;
       },
-    }),*/
+    }),
     AppModule,
     ConfigModule.forRoot(options),
   ],
