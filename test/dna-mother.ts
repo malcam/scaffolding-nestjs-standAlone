@@ -1,5 +1,3 @@
-// eslint-disable-next-line max-len
-// import { randProductDescription, randProductName, randNumber } from '@ngneat/falso';
 import { CreateDnaCommand } from '../src/modules/app/application/create-dna.command';
 
 export class DnaMother {
@@ -7,6 +5,7 @@ export class DnaMother {
     const data = ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG'];
     const command = new CreateDnaCommand();
     command.dna = data;
+    command.hasMutation = true;
 
     return command;
   }
@@ -15,6 +14,7 @@ export class DnaMother {
     const data = ['ATGCGA', 'CAGTGC', 'TTATTT', 'AGACGG', 'GCGTCA', 'TCACTG'];
     const command = new CreateDnaCommand();
     command.dna = data;
+    command.hasMutation = false;
 
     return command;
   }

@@ -1,9 +1,10 @@
 export class DnaChain {
+  private readonly validTokens = ['A', 'T', 'C', 'G'];
+
   private _id: number;
   private _createdAt: Date;
   private _hasMutation: boolean;
-
-  private readonly validTokens = ['A', 'T', 'C', 'G'];
+  private _uniqueId: string;
   private _sequence: string[] = [];
 
   get id(): number {
@@ -20,6 +21,10 @@ export class DnaChain {
 
   get hasMutation(): boolean {
     return this._hasMutation;
+  }
+
+  get uniqueId(): string {
+    return this._uniqueId;
   }
 
   dimension() {
@@ -42,6 +47,10 @@ export class DnaChain {
     this._hasMutation = hasMutation;
   }
 
+  makeUnique(hash: string) {
+    this._uniqueId = hash;
+  }
+
   private isValidToken(character) {
     return this.validTokens.includes(character);
   }
@@ -50,6 +59,9 @@ export class DnaChain {
     const props = {
       _id: 'id',
       _createdAt: 'createdAt',
+      _hasMutation: 'hasMutation',
+      _uniqueId: 'uniqueId',
+      _sequence: 'sequence',
     };
 
     Object.entries(props).forEach((item) => {

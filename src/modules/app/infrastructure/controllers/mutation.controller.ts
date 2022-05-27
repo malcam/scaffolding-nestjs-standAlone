@@ -3,6 +3,7 @@ import { HasMutationCommand } from '../../application/has-mutation.command';
 import { HasMutationService } from '../../application/has-mutation.service';
 import { CreateDnaService } from '../../application/create-dna.service';
 import { CreateDnaCommand } from '../../application/create-dna.command';
+import { DnaChainDto } from './dto/dna-chain.dto';
 
 @Controller()
 export class MutationController {
@@ -24,11 +25,11 @@ export class MutationController {
 
       const result = await this.createDnaService.process(createCommand);
 
-      if (!model.hasMutation) {
+      if (!result.hasMutation) {
         throw new Error('Mutacion no encontrada');
       }
 
-      return result;
+      return new DnaChainDto(result);
     } catch (error) {
       throw new HttpException(
         {

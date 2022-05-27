@@ -27,11 +27,12 @@ describe('Has Mutation Use Case', () => {
     const command = DnaMother.mutatedDnaCreateCommand();
 
     const result = await service.process(command);
+
     expect(result).toBeInstanceOf(DnaChain);
     expect(result.hasMutation).toBeTruthy();
   });
 
-  it('Should throw a error when has not mutation', async () => {
+  it('Should return false when has not mutation', async () => {
     const command = DnaMother.notMutatedDnaCreateCommand();
 
     const result = await service.process(command);

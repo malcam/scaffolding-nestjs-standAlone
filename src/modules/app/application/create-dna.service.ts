@@ -2,14 +2,17 @@ import { Injectable, Inject } from '@nestjs/common';
 import { ApplicationService } from '../../shared/contracts/application-service';
 import { CreateDnaCommand } from './create-dna.command';
 import { DnaChain } from '../domain/dna-chain';
-import { DNA_REPOSITORY } from '../../shared/injection-tokens';
+import { DNA_REPOSITORY, UNIQUE_ID_SERVICE } from '../../shared/injection-tokens';
 import { DnaRepository } from '../domain/contracts/dna.repository';
+import { UniqueIdService as IUniqueIdService } from '../domain/contracts/unique-id.service';
 
 @Injectable()
 export class CreateDnaService implements ApplicationService<CreateDnaCommand> {
   constructor(
     @Inject(DNA_REPOSITORY)
     private readonly dnaRepository: DnaRepository,
+    @Inject(UNIQUE_ID_SERVICE)
+    private readonly uniqueIdService: IUniqueIdService,
   ) {}
 
   /**
@@ -17,15 +20,22 @@ export class CreateDnaService implements ApplicationService<CreateDnaCommand> {
    * @param command dna data
    */
   async process(command: CreateDnaCommand): Promise<any> {
-    const entity = new DnaChain();
-    command.dna.forEach((value) => {
-      entity.add(value);
-    });
+    const uniqueId = this.uniqueIdService.identityHashCode(command.dna);
 
-    entity.markMutationWith(command.hasMutation);
+    let model = await this.dnaRepository.byUniqueId(uniqueId);
 
-    await this.dnaRepository.create(entity);
+    if (model === null) {
+      model = new DnaChain();
+      command.dna.forEach((value) => {
+        model.add(value);
+      });
 
-    return entity;
+      model.markMutationWith(command.hasMutation);
+      model.makeUnique(this.uniqueIdService.identityHashCode(model.toArray()));
+
+      await this.dnaRepository.create(model);
+    }
+
+    return model;
   }
 }

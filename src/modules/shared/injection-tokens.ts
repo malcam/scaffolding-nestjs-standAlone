@@ -1,3 +1,4 @@
 export const MUTATION_TEST_SERVICE = Symbol('MUTATION_TEST_SERVICE');
 export const DNA_REPOSITORY = Symbol('DNA_REPOSITORY');
 export const STAT_REPOSITORY = Symbol('STAT_REPOSITORY');
+export const UNIQUE_ID_SERVICE = Symbol('UNIQUE_ID_SERVICE');

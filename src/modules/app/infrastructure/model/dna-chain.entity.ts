@@ -14,4 +14,7 @@ export class DnaChainEntity extends BaseEntity {
 
   @Column({ type: 'boolean', name: 'has_mutation', nullable: true })
   hasMutation: boolean;
+
+  @Column({ type: 'varchar' })
+  hash: string;
 }
